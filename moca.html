@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="0.1">
+    <link rel="stylesheet" href="moca.css">
+    <title>Khảo sát Alzheimer</title>
+</head>
+
+<body>
+    <h1>Bài test đánh giá nhận thức chuyên sâu</h1>
+    <div class="progress">
+        <div id="progressText">Câu 1</div>
+        <div class="progressBar">
+            <div id="progressFill"></div>
+        </div>
+    </div>
+    <form id="surveyform">
+        <div class="moca-container">
+            <div id="question-container">
+                <div class="question-card" id="q1">
+                    <h2>Câu 1: Nối quy luật.</h2>
+                    <p>
+                        Hãy nối các ký hiệu theo đúng quy luật:
+                        <strong>1 -> A -> 2 -> B -> 3 -> C -> 4 -> D -> 5 -> E</strong>
+                    </p>
+                    <div id="patternBoard" class="pattern-board">
+                        <svg id="patternLines"></svg>
+                        <button class="pattern-button" data-value="1">1</button>
+                        <button class="pattern-button" data-value="A">A</button>
+                        <button class="pattern-button" data-value="2">2</button>
+                        <button class="pattern-button" data-value="B">B</button>
+                        <button class="pattern-button" data-value="3">3</button>
+                        <button class="pattern-button" data-value="C">C</button>
+                        <button class="pattern-button" data-value="4">4</button>
+                        <button class="pattern-button" data-value="D">D</button>
+                        <button class="pattern-button" data-value="5">5</button>
+                        <button class="pattern-button" data-value="E">E</button>
+                    </div>
+                    <p id="patternMessage"></p>
+                </div>
+                <div class="question-card">
+                    <h2>Câu 2: Tìm quy luật.</h2>
+                    <p>Hãy chọn số thích hợp để hoàn thành dãy sau:</p>
+                    <p><strong>2, 4, 8, 16, ?</strong></p>
+                    <label>
+                        <input type="radio" name="q2" value="0" required>
+                        18
+                    </label><br>
+                    <label>
+                        <input type="radio" name="q2" value="0">
+                        24
+                    </label><br>
+                    <label>
+                        <input type="radio" name="q2" value="2">
+                        32
+                    </label><br>
+                    <label>
+                        <input type="radio" name="q2" value="0">
+                        26
+                    </label>
+                </div>
+                <div class="question-card">
+                    <h2>Câu 3: Trí nhớ tức thì.</h2>
+                    <p>Hãy ghi nhớ dãy số sau:</p>
+                    <blockquote id="q3Sequence">7, 4, 15, 67</blockquote>
+                    <p>Sau khi ghi nhớ, hãy nhập lại 4 số theo thứ tự:</p>
+                    <input type="text" id="q3Answer" placeholder="Nhập 4 số" autocomplete="off">
+                </div>
+
+                <div class="question-card" autocomplete="off">
+                    <h2>Câu 4: Nhận diện và gọi tên.</h2>
+                    <p>Hãy quan sát và nhập tên của từng con vật: </p>
+                    <div
+                        style="display: flex; gap: 20px; justify-content: center; align-items: center; margin: 15px 0; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <img src="báo.webp" alt="animal 1"
+                                style="width: 100%; height: 180px; max-width: 320px; object-fit: contain; margin-bottom: 8px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+                            <br>
+                            <input type="text" id="animal1" placeholder="Nhập tên..."
+                                style="width: 200px; padding: 10px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                                required>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <img src="một.jpg" alt="animal 2"
+                                style="width: 100%; height: 180px; max-width: 320px; object-fit: contain; margin-bottom: 8px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+                            <br>
+                            <input type="text" id="animal2" placeholder="Nhập tên..."
+                                style="width: 200px; padding: 10px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                                required>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <img src="soitrang.jpg" alt="animal 3"
+                                style="width: 100%; height: 180px; max-width: 320px; object-fit: contain; margin-bottom: 8px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+                            <br>
+                            <input type="text" id="animal3" placeholder="Nhập tên..."
+                                style="width: 200px; padding: 10px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                                required>
+                        </div>
+                    </div>
+                    <small style="color: #666;">* Nhập đúng mỗi con vật được tính 1 điểm (Tối đa 3 điểm).</small>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" id="prevbtn">Quay lại</button>
+                <button type="button" id="nextbtn">Tiếp tục</button>
+                <button type="button" id="submitbtn">Hoàn thành</button>
+            </div>
+        </div>
+    </form>
+    <script src="script.js"></script>
+    <script src="moca.js"></script>
+</body>
+
+</html>
