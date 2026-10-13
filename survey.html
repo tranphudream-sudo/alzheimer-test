@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo Sát Alzheimer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="progressText">
+        <p id="progressText"></p>
+
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+    </div>
+    <form id="surveyForm" autocomplete="off">
+        <h1>Khảo Sát Sàng Lọc Nhận Thức</h1>
+        <!--ĐIỀN THÔNG TIN-->
+        <div class="question-card active" id="screening-card">
+            <h2>Khu Vực Sàng Lọc 🎯</h2>
+            <p><strong>Vui lòng nhập thông tin cá nhân và chọn bài test :</strong></p>
+
+            <div style="margin-bottom: 15px;">
+                <label for="fullName">Họ và tên :</label><br>
+                <input type="text" id="fullName" placeholder="Nhập họ và tên..."
+                    style="width: 90%; padding: 15px; margin-top: 5px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="age">Độ tuổi :</label><br>
+                <select id="age" style="width: 90%; padding: 15px; margin-top: 5px;">
+                    <option value="">-- Chọn độ tuổi --</option>
+                    <option value="under50">Dưới 50 tuổi</option>
+                    <option value="50-65">Từ 50 đến 65 tuổi</option>
+                    <option value="over65">Trên 65 tuổi</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="region">Khu vực sinh sống :</label><br>
+                <select id="region" style="width:  90%; padding: 15px; margin-top: 5px;">
+                    <option value="">-- Chọn khu vực --</option>
+                    <option value="mien bac">Miền Bắc</option>
+                    <option value="mien trung">Miền Trung</option>
+                    <option value="mien nam">Miền Nam</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <!--CHỌN TRÌNH ĐỘ HỌC VẤN-->
+                <label for="education">Trình độ học vấn :</label><br>
+                <select id="education" style="width: 90%; padding: 15px; margin-top: 5px;">
+                    <option value="">-- Chọn trình độ --</option>
+                    <option value="under12">Dưới 12 năm ( Tiểu học / THCS )</option>
+                    <option value="over12">Từ 12 năm trở lên ( THPT / Đại học / Cao đẳng )</option>
+                </select>
+            </div>
+
+
+            <div style="margin-bottom: 15px;"> <!--CHỌN BÀI TEST MMSE HOẶC MOCA-->
+                <label><b>Chọn bài khảo sát :</b></label><br>
+                <div style="margin-top: 8px; display: flex; gap: 15px;">
+                    <label style="cursor: pointer; border: 1px solid #ccc; padding: 10px; border-radius: 6px; flex: 1;">
+                        <input type="radio" name="testType" value="mmse" checked>
+                        <strong>Thang đo nhận thức cơ bản</strong>
+                        <p style="font-size: 20px; color: black; margin: 5px 0 0 0;">Đánh giá nhanh một số khả năng nhận
+                            thức cơ bản.</p>
+                    </label>
+                    <label style="cursor: pointer; border: 1px solid #ccc; padding: 10px; border-radius: 6px; flex: 1;">
+                        <input type="radio" name="testType" value="moca">
+                        <strong>Thang đo nhận thức chuyên sâu</strong>
+                        <p style="font-size: 20px; color: black; margin: 5px 0 0 0;">Sàng lọc chuyên sâu suy giảm nhận
+                            thức, đặc biệt ở mức độ
+                            nhẹ (MCI).</p>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <p class="intro">Vui lòng trả lời các câu hỏi dưới đây.</p>
+        <!--BỘ 10 CÂU HỎI MMSE THAM KHẢO NỘI DUNG MMSE-->
+        <div class="question-card">
+            <h2>Câu 1: Định hướng thời gian.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy đọc kỹ và trả lời các câu hỏi sau: Năm nay là năm nào? Bây giờ là mùa nào? Hiện tại là tháng mấy? Hôm nay là ngày mấy trong tháng? Hôm nay là thứ mấy trong tuần?">
+                🔊 Đọc câu hỏi </button>
+            <label>Năm nay là Năm nào?</label>
+            <input type="number" id="ans-year" placeholder="Ví dụ: 2026"
+                style="width: 90%; padding: 15px; margin-top: 5px;" required>
+
+            <label>Bây giờ là Mùa nào?</label>
+            <select id="ans-season" style="width: 90%; padding: 15px; margin-top: 5px;" required>
+                <option value="">-- Chọn Mùa --</option>
+                <option value="Xuan">Mùa Xuân</option>
+                <option value="Ha">Mùa Hạ / Hè</option>
+                <option value="Thu">Mùa Thu</option>
+                <option value="Dong">Mùa Đông</option>
+            </select>
+
+            <label>Hiện tại là Tháng mấy?</label>
+            <input type="number" id="ans-month" min="1" max="12" placeholder="1 - 12"
+                style="width: 90%; padding: 15px; margin-top: 5px;" required>
+
+            <label>Hôm nay là Ngày mấy trong tháng?</label>
+            <input type="number" id="ans-day" min="1" max="31" placeholder="1 - 31"
+                style="width: 90%; padding: 15px; margin-top: 5px;" required>
+
+            <label>Hôm nay là Thứ mấy trong tuần</label>
+            <select id="ans-weekday" style="width: 90%; padding: 15px; margin-top: 5px; margin-bottom: 10px;" required>
+                <option value="">-- Chọn Thứ --</option>
+                <option value="1">Chủ Nhật</option>
+                <option value="2">Thứ Hai</option>
+                <option value="3">Thứ Ba</option>
+                <option value="4">Thứ Tư / Bốn</option>
+                <option value="5">Thứ Năm</option>
+                <option value="6">Thứ Sáu</option>
+                <option value="7">Thứ Bảy</option>
+            </select>
+
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 2: Định hướng không gian.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời các câu hỏi sau: Bạn hiện đang ở Tỉnh . thành phố nào . ở quốc gia nào?">
+                🔊 Đọc câu hỏi </button>
+            <label>Bạn hiện đang ở Tỉnh / Thành phố nào?</label>
+            <input type="text" id="q2city" placeholder="Ví dụ: Hà Nội, Hồ Chí Minh, Đà Nẵng..." autocomplete="off"
+                style="width: 90%; padding: 15px; margin-top: 5px;" required>
+            <label>Bạn hiện đang ở Quốc gia nào?</label>
+            <input type="text" id="q2country" placeholder="Ví dụ: Việt Nam, Mỹ, Nhật Bản..." autocomplete="off"
+                style="width: 90%; padding: 15px; margin-top: 5px;" required>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 3: Khả năng ghi nhớ tức thì.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy nhẩm và ghi nhớ kỹ 3 từ sau: quả táo  .  chiếc xe  . cây bút. Bạn đã nhẩm kỹ chưa ? ">
+                🔊 Đọc câu hỏi </button>
+            <p>Hãy đọc kỹ và ghi nhớ 3 từ sau: <strong>"Quả Táo"</strong>,<strong>"Chiếc Xe"</strong>,<strong>"Cây
+                    Bút"</strong>. Bạn đã sẵn sàng chưa ?</p>
+            <label><input type="radio" name="q3" value="3" required> Đã nhẩm và ghi nhớ rõ cả 3 từ (3 điểm)</label><br>
+            <label><input type="radio" name="q3" value="1"> Chỉ nhớ được 1 đến 2 từ (1 điểm)</label><br>
+            <label><input type="radio" name="q3" value="0"> Không tập trung / Không nhớ được (0 điểm)</label>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 4: Chú ý và Tính toán.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy thực hiện các phép tính trừ liên tiếp bắt đầu từ 100  , cụ thể : lấy 100 trừ đi 7, lấy kết quả trừ tiếp đi 7, thực hiện đủ 5 lần và điển vào các ô bên dưới theo thứ tự từ trái sang phải  , hoặc đọc to để người thân điền giúp  ">
+                🔊 Đọc câu hỏi </button>
+            <p>Hãy tính nhẩm liên tiếp : Lấy <strong>100 trừ 7</strong>, lấy kết quả <strong>trừ tiếp cho 7</strong>
+                (Thực
+                hiện đủ 5 lần) và điền vào các ô bên dưới :</p>
+            <div style="display: flex; gap: 8px; margin: 15px 0; flex-wrap: wrap;">
+                <input type="number" id="sub1" placeholder="100 - 7 = ?"
+                    style="width: 120px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="number" id="sub2" placeholder="Lần 2"
+                    style="width: 120px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="number" id="sub3" placeholder="Lần 3"
+                    style="width: 120px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="number" id="sub4" placeholder="Lần 4"
+                    style="width: 120px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="number" id="sub5" placeholder="Lần 5"
+                    style="width: 120px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+            </div>
+            <small style="color: #666;">* Mỗi kết quả đúng sẽ được tính 1 điểm (Tối đa 5 điểm).</small>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 5: Hồi tưởng / Nhớ lại ngắn hạn.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy nhớ lại 3 từ vừa nhẩm ở câu 3 và điền vào các ô bên dưới lần lượt từ trái sang phải  , hoặc đọc to để người thân điền giúp ">
+                🔊 Đọc câu hỏi </button>
+            <p>Không nhìn lại câu 3, hãy nhớ lại và nhập <strong>3 từ</strong> vừa được yêu cầu ghi nhớ ở Câu 3 vào các
+                ô
+                bên dưới:</p>
+
+            <div style="display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap;">
+                <input type="text" id="word1" placeholder="Từ thứ 1"
+                    style="width: 150px; padding: 30px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="text" id="word2" placeholder="Từ thứ 2"
+                    style="width: 150px; padding: 30px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+                <input type="text" id="word3" placeholder="Từ thứ 3"
+                    style="width: 150px; padding: 30px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                    required>
+            </div>
+            <small style="color: #666;">* Nhớ được từ nào đúng sẽ tính 1 điểm (Tối đa 3 điểm).</small>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu hỏi 6: Định dạng đồ vật.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy định dạng các đồ vật sau dựa theo miêu tả : vật thứ nhất có dạng hình tròn  .  kích thước vừa lòng bàn tay  .  hoặc to hơn  . trên mặt có các vạch chia đều  .  xung quanh có hai hoặc 3 kim ở giữa dùng để chỉ giờ và phút . vật thứ hai là một vật dài và thon  .  có thể cầm bằng 1 tay  . một đầu dùng để viết lên giấy . đầu còn lại có thể là nút bấm . nắp . hoặc phần kẹp để gắn vào túi áo . Sau khi đã có được đáp án của mình hãy điền vào các ô bên dưới theo thứ tự từ trái sang phải hoặc đọc to để người thân điền giúp">
+                🔊 Đọc câu hỏi </button>
+            <p>Hãy quan sát 2 hình ảnh bên dưới và gõ tên chính xác của từng vật vào ô tương ứng:</p>
+            <div
+                style="display: flex; gap: 20px; justify-content: center; align-items: center; margin: 15px 0; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <img src="img.file.webp" alt="Vật 1"
+                        style="width: 230px; height: 230px; object-fit: contain; margin-bottom: 8px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+                    <br>
+                    <input type="text" id="obj1" placeholder="Vật 1 là gi ?"
+                        style="width: 200px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                        required>
+                </div>
+
+                <div style="text-align: center;">
+                    <img src="img.file.jpg" alt="Vật 2"
+                        style="width: 230px; height: 230px; object-fit: contain; margin-bottom: 8px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+                    <br>
+                    <input type="text" id="obj2" placeholder="Vật 2 là gi ?"
+                        style="width: 200px; padding: 20px; text-align: center; border: 1px solid #ccc; border-radius: 4px;"
+                        required>
+                </div>
+            </div>
+            <small style="color: #666;">* Nhập đúng mỗi đồ vật được tính 1 điểm (Tối đa 2 điểm).</small>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 7: Lặp lại câu</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy lặp lại rõ ràng câu sau : không nếu  .  và  .  hoặc nhưng . bạn thực hiện lượt đọc trên như thế nào?">
+                🔊 Đọc câu hỏi </button>
+            <p>Đọc và lặp lại rõ ràng câu sau:</p>
+            <blockquote
+                style="font-size: 25px; font-weight: bold; color: #03172b; background: #f0f4f8; padding: 19px; border-left: 4px solid #03172b; margin: 10px 0;">
+                "Không nếu , và , hoặc nhưng"
+            </blockquote>
+            <p>Bạn thực hiện lượt đọc này như thế nào ?</p>
+            <label><input type="radio" name="q7" value="1" required> Phát âm rõ ràng, trôi chảy, <strong>đúng
+                    100%</strong>
+                không vấp (Tối đa 1 điểm)</label><br>
+            <label><input type="radio" name="q7" value="0">Đọc ngắc ngứ, nói lặp từ, thiếu từ hoặc sai cấu trúc (0
+                điểm)</label>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 8: Thực hiện theo lệch 3 bước.</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy thực hiện chuỗi động tác sau :  Cầm một tờ giấy bằng tay phải  .  gập đôi tờ giấy lại  . rồi đặt xuống bàn  . bạn thực hiện thao tác trên như thế nào ?">
+                🔊 Đọc câu hỏi </button>
+            <p>Thực hiện chuỗi động tác:<em><strong>"Cầm một tờ giấy bằng tay phải, gập đôi tờ giấy lại, rồi đặt xuống
+                        bàn"</strong></em>.
+            </p>
+            <label><input type="radio" name="q8" value="3" required>Làm đúng hoàn toàn cả 3 bước theo thứ tự (3
+                điểm)</label><br>
+            <label><input type="radio" name="q8" value="1">Làm đúng 1 đến 2 bước (1 điểm)</label><br>
+            <label><input type="radio" name="q8" value="0">Không thực hiện được (0 điểm)</label>
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 9: Hiểu lệnh & Hành động</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy Nhắm mắt lại trong 3 giây .  và bấm giữ nút bấm trên màn hình .  hoặc nhờ người thân bấm giúp">
+                🔊 Đọc câu hỏi </button>
+            <p>Đọc dòng chữ dưới đây, sau đó <strong>ấn giữ nút bên dưới và thực hiện</strong>:</p>
+
+            <blockquote style="font-size: 28px; font-weight: bold; color: #f32f2f; text-align: center; margin: 15px 0;">
+                "NHẮM MẮT LẠI TRONG 3 GIÂY"
+            </blockquote>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <button type="button" id="closeEyesBtn" style="
+                padding: 15px 30px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #4e8bc9;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                user-select: none;
+                touch-action: manipulation;">
+                    Nhấn và Giữ để nhắm mắt
+                </button>
+                <div style="margin: 15px; text-align: center;">
+                    <button type="button" id="startCameraBtn">
+                        Bật camera kiểm tra
+                    </button>
+                    <br><br>
+                    <video id="q9camera" autoplay playsinline muted>
+                    </video>
+
+                    <p id="q9CamStatus">Camera chưa được bật</p>
+                </div>
+                <div id="q9Status" style="margin-top: 10px; font-weight: bold; color: #555;">Trạng thái: Chưa thực hiện
+                </div>
+            </div>
+            <!--HIDDEN INPUT ĐỂ LƯU ĐIỂM SỐ-->
+            <input type="hidden" id="q9Score" value="0">
+        </div>
+
+        <div class="question-card">
+            <h2>Câu 10: Tư duy Ngôn ngữ & Thị giác Không gian</h2>
+            <button type="button" class="readBtn"
+                data-text="Hãy nghe kỹ và trả lời câu hỏi sau: Bạn hãy viết một câu hoàn chỉnh  .  có đầy đủ chủ ngữ  .  vị ngữ  .  vào ô ở phần một  .  hoặc đọc to để người thân điền giúp  .  tiếp theo bạn hãy vẽ hai hình ngũ giác 5 cạnh giao nhau  .  vào ô thứ 2 theo các bước  .  bước một vẽ hình thứ nhất, bước hai bấm nút vẽ hình thứ hai , để vẽ hình ngũ giác tiếp theo , nếu trong quá trình vẽ xảy ra sai sót  ,  hãy bấm nút vẽ lại  ,  nếu không thực hiện được do hạn chế cá nhân , hãy vẽ ra giấy và nhờ người thân vẽ lại hộ trên website">
+                🔊 Đọc câu hỏi </button>
+            <div style="margin-bottom: 20px;">
+                <p><strong>1.Hãy viết một câu hoàn chỉnh</strong> có đầy đủ <strong>Chủ ngữ & Vị ngữ</strong>:</p>
+                <input type="text" id="q10Sentence" placeholder="Ví dụ: Hôm nay trời rất đẹp."
+                    style="width: 100%; max-width: 400px; box-sizing: border-box; padding: 15px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px;"
+                    required>
+            </div>
+
+            <div>
+                <p><strong>2.Hãy vẽ lại 2 hình ngũ giác (5 cạnh) cắt/lồng vào nhau</strong> trong ô bên dưới theo thứ
+                    tự:
+                </p>
+                <p>Bước 1: Vẽ hình ngũ giác đầu tiên.</p>
+                <p>Bước 2: Bấm nút <strong>"Bắt đầu vẽ hình tiếp theo !"</strong> để vẽ hình ngũ giác thứ hai.</p>
+
+                <p><strong>Hình mẫu:</strong></p>
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <canvas id="templateCanvas" width="320" height="200"
+                        style="border: 2px solid #ccc; background: #f0f0f0; border-radius: 8px;"></canvas>
+                </div>
+                <div style="text-align: center;">
+                    <canvas id="drawCanvas" width="320" height="200"
+                        style="width: 100%; max-width: 320px; height: auto; display: block; margin: 0 auto; box-sizing: border-box; border: 2px dashed #61a2e4; background: #fff; border-radius: 8px; cursor: crosshair; touch-action: none;"></canvas>
+                    <br>
+                    <button type="button" id="clearCanvasBtn"
+                        style="margin-top: 8px; padding: 6px 12px; font-size: 13px; background: #e45147; color: white; border: none; border-radius: 4px; cursor: pointer;">Vẽ
+                        lại</button>
+                    <button type="button" id="newShapeBtn">Bắt đầu vẽ hình thứ 2!</button>
+                </div>
+            </div>
+            <small style="color: #666; display: block; margin-top: 10px;">*Viết câu đúng nghĩa (1đ) + Thực hiện vẽ hình
+                (1đ)
+                = Tối đa 2 điểm.</small>
+        </div>
+        <!--CODE MỚI-->
+        <div class="navigation-buttons">
+            <button type="button" id="prevBtn" style="display: none;">Quay lại</button>
+            <button type="button" id="nextBtn">Tiếp tục</button>
+            <button type="submit" id="submitBtn" style="display: none;">Hoàn thành</button>
+        </div>
+        <p id="result"></p>
+        <p class="note"><em>Kết quả chỉ mang tính tham khảo,không thay thế chẩn đoán y tế.</em></p>
+        <p id="warning"></p>
+        <p id="message"></p>
+        <button type="button" id="resetButton">Làm lại khảo sát</button>
+
+    </form>
+    <script src="q9.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
