@@ -1,0 +1,615 @@
+body {
+    font-family: Arrial, sans-serif;
+    background-color: rgb(247, 252, 248);
+    margin: 0;
+    padding: 30px;
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #34495e;
+    margin-top: 30px;
+}
+
+label {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #4c85aa;
+    color: white;
+    font-size: 18px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: o.2s;
+}
+
+/*khi rê chuột vào sẽ phóng to*/
+button:hover {
+    background-color: #041f31;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.question-card {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-card label {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.question-card label:has(input:checked) {
+    background-color: #a3c5db;
+    font-weight: bold;
+    transform: scale(1.02);
+}
+
+.intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+form h1 {
+    margin-bottom: 5px;
+}
+
+#warning {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #e8f4fd;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.note {
+    font-size: small;
+}
+
+.result-card {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#result {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 19px 0;
+}
+
+#level {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.home-card {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 35px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-card h1 {
+    color: #00070c;
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.home-card button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    padding: 12px 25px;
+}
+
+#message {
+    color: #081e2e;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    /*làm phần chuyển động mượt mà*/
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#message.show {
+    opacity: 1;
+}
+
+/*trạng thái ngay lúc mình bấm nút,bình thường 100 bấm vào thu còn 95*/
+.progress-container {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    text-align: center;
+}
+
+#progressText {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+#progressFill {
+    width: 20%;
+    height: 100%;
+    background-color: #80c0eb;
+    border-radius: 10px;
+    transition: width 0.4 ease;
+}
+
+/* ẨN TẤT CẢ CÂU HỎI */
+.question-card {
+    display: none !important;
+}
+
+/*CHỈ HIỆN CÂU HỎI ĐANG ACTIVE*/
+.question-card.active {
+    display: block !important;
+    margin-bottom: 20px;
+}
+
+.question-card h2 {
+    font-size: 29px;
+    line-height: 1.5;
+}
+
+.question-card p,
+.question-card blockquote {
+    font-size: 25px;
+    line-height: 1.6;
+}
+
+.question-card label {
+    font-size: 23px;
+    line-height: 1.7;
+}
+
+.resultContainer {
+    width: min(92%, 720px);
+    margin: 45px auto;
+}
+
+.resultHeader {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.resultIcon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    font-size: 34px;
+    line-height: 1;
+    background: #eaf5ff;
+    border-radius: 22px;
+}
+
+.resultIcon span {
+    display: block;
+    font-size: 34px;
+    line-height: 1;
+    transform: translateX(10px);
+}
+
+.resultHeader h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.resultHeader p {
+    margin-top: 8px;
+    color: #979797;
+    font-size: 15px;
+}
+
+.resultCard {
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    border: 1px solid #eeeeee;
+}
+
+.cardTitle {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 22px;
+}
+
+.titleIcon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3faff;
+    border-radius: 13px;
+    font-size: 21px;
+}
+
+.cardTitle h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.cardTitle p {
+    margin: 4px 0 0;
+    color: #979696;
+    font-size: 13px;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.infoItem {
+    background: #f8fafc;
+    border-radius: 13px;
+    padding: 13px 15px;
+}
+
+.infoItem.full {
+    grid-column: 1 / -1;
+}
+
+.infoLabel {
+    display: block;
+    font-size: 17px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.infoItem strong {
+    font-size: 18px;
+    color: #263238;
+}
+
+.scoreCard {
+    text-align: center;
+    background: linear-gradient(142deg, #eaf5ff, #f5fbff);
+    border-radius: 25px;
+    padding: 32px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #d9efff;
+}
+
+.scoreLabel {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #5695c5;
+}
+
+.scoreNumber {
+    margin: 12px 0;
+    font-size: 52px;
+    font-weight: 700;
+    color: #2584c5;
+}
+
+.scoreDescript {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+.bonusNote {
+    margin: 15px 0 0;
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+}
+
+.evaluationContent {
+    background: #f8fafc;
+    border-radius: 15px;
+    padding: 18px;
+}
+
+.evaluationContent p {
+    margin: 0;
+    font-size: 25px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.medicalNote {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 15px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff8e8;
+    color: #806b3d;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.medicalNote span {
+    font-size: 16px;
+}
+
+.medicalNote p {
+    margin: 0;
+}
+
+.resultAction {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.resultBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 13px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.primaryBtn {
+    background: #3e6d94;
+    color: white;
+    box-shadow: 0 5px 14px rgba(35, 37, 39, 0.61);
+}
+
+.secondaryBtn {
+    background: #292929;
+    color: white;
+    box-shadow: 0 5px 14px rgba(35, 37, 39, 0.616);
+}
+
+.resultBtn:hover {
+    transform: translateY(-3px);
+}
+
+.primaryBtn:hover {
+    background: #2b4e63;
+}
+
+.secondaryBtn:hover {
+    background: #111;
+}
+
+.gameBtn {
+    background: #231c5f;
+    color: white;
+    box-shadow: 0 5px 14px rgba(33, 36, 37, 0.61);
+    ;
+}
+
+.gameBtn:hover {
+    background: #18133a;
+}
+
+.resultFooter {
+    text-align: center;
+    margin: 20px auto 10px;
+    color: #999;
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.resultFooter span {
+    color: #999;
+    font-size: 12px;
+}
+
+.evaluationContent {
+    padding: 18px;
+    border-radius: 16px;
+}
+
+.evaluationContent li {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    padding-left: 5px;
+    color: #00070c;
+}
+
+.evaluationContent ul {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.evaluationContent li:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .resultContainer {
+        width: 92%;
+        margin: 25px auto;
+    }
+
+    .resultHeader h1 {
+        font-size: 27px;
+    }
+
+    .resultCard {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .infoGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .infoItem.full {
+        grid-column: auto;
+    }
+
+    .scoreNumber {
+        font-size: 45px;
+    }
+
+    .resultAction {
+        flex-direction: column;
+    }
+
+    .resultBtn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .evaluationContent li {
+        font-size: 15px;
+        line-height: 1.55;
+        margin-bottom: 10px;
+    }
+}
+
+
+.readBtn {
+    background: transparent;
+    color: #00070c;
+    box-shadow: 0 5px 14px rgba(23, 26, 27, 0.616);
+    font-size: 20px;
+}
+
+.readBtn:hover {
+    background: transparent;
+}
+
+.question-card {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+#q10Sentence {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 400px;
+}
+
+#templateCanvas,
+#drawCanvas {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+#clearCanvasBtn,
+#newShapeBtn {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+
+    #templateCanvas,
+    #drawCanvas {
+        width: 100%;
+    }
+
+    #clearCanvasBtn,
+    #newShapeBtn {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+
+#drawCanvas {
+    touch-action: none;
+    user-select: none;
+}
+
+#templateCanvas {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+#q9camera {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
