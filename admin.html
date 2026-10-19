@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Chấm bài vẽ đồng hồ</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f4f8;
+            color: #263044;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+            color: #5541b8;
+        }
+
+        header p {
+            color: #687187;
+            line-height: 1.6;
+        }
+
+        .notice {
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            background: #fff4d6;
+            color: #76551a;
+            line-height: 1.5;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .toolbar select {
+            padding: 10px 12px;
+            border: 1px solid #d5d9e5;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .count {
+            font-weight: bold;
+        }
+
+        .submission {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+            gap: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px #2630440d;
+        }
+
+        .submission h2 {
+            margin-top: 0;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            margin-bottom: 16px;
+            border-radius: 20px;
+            background: #fff0d0;
+            color: #8a5b00;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status.done {
+            background: #dff7e8;
+            color: #167443;
+        }
+
+        .image-box {
+            display: flex;
+            min-height: 220px;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px dashed #c8cddd;
+            border-radius: 12px;
+            background: #fafbff;
+        }
+
+        .image-box img {
+            display: block;
+            max-width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+        }
+
+        .image-placeholder {
+            color: #8a91a3;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .grading label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+        }
+
+        .grading select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5d9e5;
+            border-radius: 9px;
+            font-size: 15px;
+            background: white;
+        }
+
+        button {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .primary {
+            width: 100%;
+            margin-top: 14px;
+            background: #6552cf;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #5140b2;
+        }
+
+        .secondary {
+            background: #ece9ff;
+            color: #5541b8;
+        }
+
+        .empty {
+            padding: 35px 20px;
+            border-radius: 16px;
+            background: white;
+            text-align: center;
+            color: #687187;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #858b9c;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 14px;
+            }
+
+            .submission {
+                grid-template-columns: 1fr;
+                padding: 17px;
+            }
+        }
+
+        .image-box {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 12px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+        .image-box img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="loginPanel"
+        style="max-width: 400px; margin: 60px auto; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px #0002;">
+        <h2>Đăng nhập giám khảo</h2>
+        <form id="loginPanel">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" autocomplete="username" placeholder="Nhập email giám khảo"
+                style="display:block; width:100%; box-sizing:border-box; padding:12px; margin:8px 0 16px;">
+
+            <label for="loginPassword">Mật khẩu</label>
+            <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu"
+                style="display:block; width:100%; box-sizing:border-box; padding:12px; margin:8px 0 16px;">
+
+            <button id="loginButton" type="button" style="padding:12px 18px;">
+                Đăng nhập
+            </button>
+        </form>
+        <p id="loginMessage" role="status" aria-live="polite"></p>
+    </section>
+    <div id="adminAccessMessage" style="display: none; text-align: center; padding: 20px;">Đang kiểm tra quyền truy
+        cập...</div>
+    <main class="container">
+        <header>
+            <h1>📝 Quản lý chấm bài vẽ đồng hồ</h1>
+            <p>
+                Khu vực hỗ trợ người chấm xem ảnh bài vẽ và cập nhật kết quả
+                đánh giá câu 8.
+            </p>
+        </header>
+        <div style="text-align: right; margin: 12px 0;">
+            <button id="logOutBtn" type="button">Đăng xuất</button>
+        </div>
+        <div class="notice">
+            ⚠️ Đây là bản giao diện thử nghiệm sử dụng dữ liệu giả.
+            Điểm và trạng thái chỉ được lưu trong bộ nhớ của trang hiện tại,
+            chưa được đồng bộ lên Firebase.
+        </div>
+
+        <div class="toolbar">
+            <span class="count" id="countText">Đang tải danh sách...</span>
+
+            <select id="statusFilter" aria-label="Lọc trạng thái">
+                <option value="all">Tất cả bài</option>
+                <option value="cho_cham">Chờ chấm</option>
+                <option value="da_cham">Đã chấm</option>
+            </select>
+        </div>
+
+        <section id="submissionList"></section>
+
+        <footer>
+            Hệ thống hỗ trợ sàng lọc — không thay thế chẩn đoán y khoa.
+        </footer>
+    </main>
+
+    <script type="module">
+        import { auth, db } from "./firebase.js";
+        import {
+            collection,
+            getDocs,
+            updateDoc,
+            getDoc,
+            doc
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        import {
+            onAuthStateChanged,
+            signInWithEmailAndPassword,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js"
+
+        const submissions = [];
+
+        // Tải danh sách bài làm thật từ Firestore
+        async function loadSubmissions() {
+            countText.textContent = "Đang tải bài làm từ Firebase...";
+            submissionList.innerHTML = "";
+
+            try {
+                const snapshot = await getDocs(collection(db, "testResult"));
+
+                submissions.length = 0;
+
+                snapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    console.log("Mã bài:", documentSnapshot.id);
+                    console.log("Độ dài ảnh:", data.imageBase64?.length);
+                    console.log("Đầu dữ liệu:", data.imageBase64?.slice(0, 30));
+                    console.log("mã bài:", documentSnapshot.id);
+                    console.log("có dữ liệu ảnh:", !!data.imageBase64);
+                    console.log("đầu dữ liệu ảnh:", data.imageBase64?.slice(0, 50));
+
+                    submissions.push({
+                        id: documentSnapshot.id,
+                        imageBase64: data.imageBase64 || data.imgUrl || "",
+                        status: data.clockStatus === "da_cham"
+                            ? "da_cham"
+                            : "cho_cham",
+                        hourMarkersScore: data.hourMarkersScore ?? null,
+                        timeScore: data.timeScore ?? null,
+                        clockScore: data.clockScore ?? null
+                    });
+                });
+
+                renderSubmissions();
+
+                countText.textContent =
+                    `Có ${submissions.length} bài trong cơ sở dữ liệu`;
+
+            } catch (error) {
+                console.error("Lỗi tải bài làm:", error);
+
+                countText.textContent = "Không tải được bài làm từ Firebase.";
+
+                submissionList.innerHTML = `
+            <div class="empty">
+                Không thể tải danh sách bài làm.
+                Hãy kiểm tra quyền truy cập Firestore.
+            </div>
+        `;
+            }
+        }
+
+        const submissionList = document.getElementById("submissionList");
+        const countText = document.getElementById("countText");
+        const statusFilter = document.getElementById("statusFilter");
+
+        function renderSubmissions() {
+            submissionList.innerHTML = "";
+
+            const filter = statusFilter.value;
+
+            const filtered = submissions.filter(item => {
+                return filter === "all" || item.status === filter;
+            });
+
+            countText.textContent =
+                `Có ${filtered.length} bài trong danh sách thử nghiệm`;
+
+            if (filtered.length === 0) {
+                submissionList.innerHTML = `
+                    <div class="empty">
+                        Không có bài nào trong mục này.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const isDone = item.status === "da_cham";
+
+                const card = document.createElement("article");
+                card.className = "submission";
+
+                const left = document.createElement("div");
+                const title = document.createElement("h2");
+                title.textContent = `Bài thử nghiệm ${item.id}`;
+
+                const status = document.createElement("span");
+                status.className = `status${isDone ? " done" : ""}`;
+                status.textContent = isDone ? "Đã chấm" : "Chờ chấm";
+
+                const imageBox = document.createElement("div");
+                imageBox.className = "image-box";
+
+                if (item.imageBase64) {
+                    const image = document.createElement("img");
+                    image.src = item.imageBase64;
+                    image.alt = "Ảnh bài vẽ đồng hồ";
+
+                    image.onload = () => {
+                        console.log("Ảnh tải thành công:", item.id);
+                    };
+
+                    image.onerror = () => {
+                        console.error("Ảnh bị lỗi:", item.id);
+                        console.log("Định dạng ảnh:", item.imageBase64.slice(0, 50));
+                        console.log("Độ dài dữ liệu:", item.imageBase64.length);
+                        imageBox.textContent = "Không giải mã được ảnh. Kiểm tra dữ liệu ảnh.";
+                    };
+                    imageBox.appendChild(image);
+                } else {
+                    const placeholder = document.createElement("div");
+                    placeholder.className = "image-placeholder";
+                    placeholder.textContent =
+                        "Ảnh minh họa chưa được thêm";
+                    imageBox.appendChild(placeholder);
+                }
+
+                left.append(title, status, imageBox);
+
+                const right = document.createElement("div");
+                right.className = "grading";
+
+
+                // Tiêu chí 1: Chấm các mốc giờ
+                const labelMarkers = document.createElement("label");
+                labelMarkers.textContent = "1. Các mốc giờ";
+
+                const selectMarkers = document.createElement("select");
+                selectMarkers.setAttribute(
+                    "aria-label",
+                    `Điểm các mốc giờ bài ${item.id}`
+                );
+
+                [
+                    ["", "Chọn kết quả"],
+                    ["0", "Không đạt — 0 điểm"],
+                    ["2", "Đạt — 2 điểm"]
+                ].forEach(([value, text]) => {
+                    const option = document.createElement("option");
+                    option.value = value;
+                    option.textContent = text;
+                    selectMarkers.appendChild(option);
+                });
+
+                if (item.hourMarkersScore !== null) {
+                    selectMarkers.value = String(item.hourMarkersScore);
+                }
+
+                // Tiêu chí 2: Chấm thời gian
+                const labelTime = document.createElement("label");
+                labelTime.textContent = "2. Thời gian đúng";
+
+                const selectTime = document.createElement("select");
+                selectTime.setAttribute(
+                    "aria-label",
+                    `Điểm thời gian bài ${item.id}`
+                );
+
+                [
+                    ["", "Chọn kết quả"],
+                    ["0", "Không đạt — 0 điểm"],
+                    ["2", "Đạt — 2 điểm"]
+                ].forEach(([value, text]) => {
+                    const option = document.createElement("option");
+                    option.value = value;
+                    option.textContent = text;
+                    selectTime.appendChild(option);
+                });
+
+                if (item.timeScore !== null) {
+                    selectTime.value = String(item.timeScore);
+                }
+
+                // Nút lưu điểm
+                const saveButton = document.createElement("button");
+                saveButton.className = "primary";
+                saveButton.textContent = isDone
+                    ? "Cập nhật điểm thử nghiệm"
+                    : "Xác nhận chấm";
+
+                const result = document.createElement("p");
+                result.setAttribute("aria-live", "polite");
+                result.style.lineHeight = "1.6";
+
+                saveButton.addEventListener("click", async () => {
+                    if (selectMarkers.value === "" || selectTime.value === "") {
+                        alert("Vui lòng chọn kết quả cho cả hai tiêu chí nhé!");
+                        return;
+                    }
+
+                    const hourMarkersScore = Number(selectMarkers.value);
+                    const timeScore = Number(selectTime.value);
+                    const clockScore = hourMarkersScore + timeScore;
+
+                    saveButton.disabled = true;
+                    saveButton.textContent = "Đang lưu...";
+
+                    try {
+                        await updateDoc(doc(db, "testResult", item.id), {
+                            hourMarkersScore: hourMarkersScore,
+                            timeScore: timeScore,
+                            clockScore: clockScore,
+                            clockStatus: "da_cham"
+                        });
+
+                        item.hourMarkersScore = hourMarkersScore;
+                        item.timeScore = timeScore;
+                        item.clockScore = clockScore;
+                        item.status = "da_cham";
+
+                        alert(
+                            `Đã lưu điểm lên Firebase!\n` +
+                            `Mã bài: ${item.id}\n` +
+                            `Các mốc giờ: ${hourMarkersScore} điểm.\n` +
+                            `Thời gian đúng: ${timeScore} điểm.\n` +
+                            `Tổng điểm: ${clockScore}/4 điểm.`
+                        );
+
+                        await loadSubmissions();
+
+                    } catch (error) {
+                        console.error("Lỗi lưu điểm:", error);
+
+                        alert(
+                            "Không lưu được điểm lên Firebase. " +
+                            "Hãy kiểm tra Firestore Rules và mã bài làm."
+                        );
+                    } finally {
+                        saveButton.disabled = false;
+                        saveButton.textContent = "Xác nhận chấm";
+                    }
+                });
+
+                right.append(
+                    labelMarkers,
+                    selectMarkers,
+                    labelTime,
+                    selectTime,
+                    saveButton,
+                    result
+                );
+                card.append(left, right);
+                submissionList.appendChild(card);
+            });
+        }
+        statusFilter.addEventListener("change", renderSubmissions);
+
+        const loginPanel = document.getElementById("loginPanel");
+        const logOutBtn = document.getElementById("logOutBtn")
+        const loginBtn = document.getElementById("loginButton");
+        const loginEmail = document.getElementById("loginEmail");
+        const loginMsg = document.getElementById("loginMessage");
+        const loginPw = document.getElementById("loginPassword");
+
+        const adminPanel = document.querySelector("main.container");
+        const accessMsg = document.getElementById("adminAccessMessage");
+
+        if (adminPanel) {
+            adminPanel.style.display = "none";
+        }
+
+        loginPanel.style.display = "block";
+
+        loginBtn.addEventListener("click", async () => {
+            const email = loginEmail.value.trim();
+            const password = loginPw.value;
+
+            if (!email || !password) {
+                loginMsg.textContent = "Vui lòng nhập email và mật khẩu.";
+                return;
+            }
+
+            loginBtn.disabled = true;
+            loginMsg.textContent = "Đang đăng nhập...";
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                console.error("Lỗi đăng nhập:", error);
+                loginMsg.textContent = "Đăng nhập thất bại. Hãy kiểm tra email và mật khẩu.";
+            } finally {
+                loginBtn.disabled = false;
+            }
+        });
+
+        logOutBtn.addEventListener("click", async () => {
+            try {
+                await signOut(auth);
+                loginMsg.textContent = "Bạn đã đăng xuất thành công.";
+            } catch (error) {
+                console.error("Lỗi đăng xuất:", error);
+                alert("Đăng xuất không thành công. Vui lòng thử lại.")
+            }
+        });
+
+        onAuthStateChanged(auth, async (user) => {
+            if (adminPanel) adminPanel.style.display = "none";
+            loginPanel.style.display = "none";
+
+            if (accessMsg) {
+                accessMsg.style.display = "block";
+                accessMsg.textContent = "Đang kiểm tra quyền truy cập...";
+            }
+            if (!user) {
+                loginPanel.style.display = " block";
+                loginMsg.textContent = "Vui lòng đăng nhập bằng tài khoản giám khảo.";
+
+                if (accessMsg) accessMsg.style.display = "none";
+                return;
+            }
+
+            try {
+                const adminRef = doc(db, "admins", user.uid);
+                const adminSnap = await getDoc(adminRef);
+
+                if (!adminSnap.exists() || adminSnap.data().role !== "grader") {
+                    await signOut(auth);
+
+                    loginPanel.style.display = "block";
+                    loginMsg.textContent = "Tài khoản này không có quyền giám khảo."
+
+                    if (accessMsg) accessMsg.style.display = "none";
+                    return;
+                }
+
+                loginPanel.style.display = "none";
+                if (accessMsg) accessMsg.style.display = "none";
+
+                if (adminPanel) adminPanel.style.display = "";
+
+                await loadSubmissions();
+
+            } catch (error) {
+                console.error("Lỗi kiểm tra quyền:", error);
+                await signOut(auth);
+                loginPanel.style.display = "block";
+                loginMsg.textContent = "Không thể xác minh quyền giám khảo. Hảy kiểm tra cấu hình firestore rules.";
+
+                if (accessMsg) {
+                    accessMsg.style.display = "block";
+                    accessMsg.textContent = "Chưa thể xác minh quyền truy cập.";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
